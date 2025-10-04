@@ -1,0 +1,157 @@
+/* =========================
+   Users page — calm & modern
+========================= */
+
+:root {
+  --bg-1: #110303bf;
+  --accent: #e37813;
+  --muted: #968383;
+  --card-bg: rgba(255,255,255,0.95);
+  --input-bg: #f7f7f7;
+  --text-dark: #2f3350;
+  --glass: rgba(255,255,255,0.06);
+  --radius: 12px;
+  --max-width: 1200px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "GT Walsheim Pro", "Source Sans Pro", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(135deg, var(--bg-1) 0%, var(--accent) 60%, var(--muted) 100%);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* Container */
+.users-container {
+  width: 100%;
+  max-width: var(--max-width);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Top navigation */
+.navigation-menu {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  z-index: 10;
+}
+.navigation-menu .nav-item { list-style: none; }
+.navigation-menu a {
+  color: #f3e9dd;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 6px;
+  border-radius: 8px;
+  transition: color .18s ease, background .18s ease, transform .12s ease;
+}
+.navigation-menu a:hover {
+  color: white;
+  transform: translateY(-2px);
+}
+.navigation-menu .nav-link.active {
+  background: var(--glass);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+/* Board card */
+.board {
+  width: 100%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+}
+
+/* Login message */
+.login-message {
+  font-size: 40px;
+  color: #dddddd;
+  text-align: center;
+}
+
+/* Header text */
+.header-name {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Table wrapper */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 820px;
+  background: var(--card-bg);
+  color: var(--text-dark);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(15,20,30,0.08);
+}
+.table thead th {
+  background: linear-gradient(90deg, rgba(227,120,19,0.95), rgba(190,90,12,0.95));
+  color: #fff;
+  text-align: center;
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 14px;
+}
+.table tbody tr {
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.table tbody tr:nth-child(even) {
+  background: rgba(0,0,0,0.02);
+}
+.table td {
+  text-align: center;
+  padding: 12px 14px;
+  vertical-align: middle;
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+/* Status select */
+.spec-select {
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.spec-select:focus {
+  outline: none;
+  box-shadow: 0 6px 18px rgba(227,120,19,0.15);
+  transform: translateY(-1px);
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+  .table { min-width: 760px; }
+}
+@media (max-width: 600px) {
+  .navigation-menu { gap: 12px; font-size: 14px; }
+  .table { min-width: 680px; }
+  .board { padding: 14px; }
+}

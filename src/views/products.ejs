@@ -1,0 +1,161 @@
+<%- include('includes/header') %>
+
+<link rel="stylesheet" type="text/css" href="/css/products.css" />
+
+<body>
+  <div class="home-container products-container">
+    <!-- ====== NAVBAR ====== -->
+    <div class="navigation-menu">
+      <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link active" href="/admin/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin/product/all">Menu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin/user/all">Users</a>
+        </li>
+        <li class="nav-item" onclick="return confirm('Do you want to logout?')">
+          <a class="nav-link" href="/admin/logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ====== PRODUCT MENU TABLE ====== -->
+    <div class="restaurant-menu-frame">
+      <div class="board">
+        <div class="dishes-table">
+          <span class="new-dish-txt">🛍 CLOTH_STORE MENU</span>
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>T/r</th>
+                <th>Product Image</th>
+                <th>Product Name</th>
+                <th>Product Type</th>
+                <th>Product Size</th>
+                <th>Product Price</th>
+                <th>Product Left Count</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% products.forEach((value, key) => { %>
+              <tr>
+                <td><%= key + 1 %></td>
+                <td>
+                  <% if (value.productImages && value.productImages.length > 0) { %>
+                    <img src="/<%= value.productImages[0] %>" class="product-thumb" />
+                  <% } else { %>
+                    <img src="/img/no-image.png" alt="No image" class="product-thumb" />
+                  <% } %>
+                </td>
+                <td><%= value.productName %></td>
+                <td><%= value.productCollection %></td>
+                <td><%= value.productSize %></td>
+                <td>$<%= value.productPrice %></td>
+                <td><%= value.productLeftCount %></td>
+                <td>
+                  <select class="spec-select new-product-status" id="<%= value._id %>">
+                    <option value="PAUSE" <%= value.productStatus === 'PAUSE' ? 'selected' : '' %>>PAUSE</option>
+                    <option value="PROCESS" <%= value.productStatus === 'PROCESS' ? 'selected' : '' %>>PROCESS</option>
+                    <option value="DELETE" <%= value.productStatus === 'DELETE' ? 'selected' : '' %>>DELETE</option>
+                  </select>
+                </td>
+              </tr>
+            <% }) %>
+            </tbody>
+          </table>
+
+          <div class="long-input" style="margin-top: 20px; text-align: right;">
+            <button class="btn btn-primary" id="process-btn">➕ New Product</button>
+          </div>
+        </div>
+
+        <!-- ====== NEW PRODUCT FORM ====== -->
+        <form
+          onsubmit="return validateForm()"
+          action="/admin/product/create"
+          method="POST"
+          class="dish-container"
+          enctype="multipart/form-data"
+          style="display:none"
+        >
+          <span class="new-dish-txt">NEW PRODUCT DETAIL</span>
+
+          <div class="long-input">
+            <label>Product Name</label>
+            <input type="text" placeholder="Name" name="productName" class="product-name" />
+          </div>
+
+          <input name="productStatus" value="PAUSE" class="product-status" hidden />
+
+          <div class="half-input-frame">
+            <div class="half-input">
+              <label>Product Price</label>
+              <input type="number" placeholder="Price" name="productPrice" class="product-price" />
+            </div>
+            <div class="half-input">
+              <label>Product Left Counts</label>
+              <input type="number" placeholder="Counts" name="productLeftCount" class="product-left-count" />
+            </div>
+          </div>
+
+          <div class="half-input-frame">
+            <div class="half-input">
+              <label>Product Type</label>
+              <select class="product-collection" name="productCollection">
+                <option value="CLOTHS" selected>CLOTHS</option>
+                <option value="SNEAKERS">SNEAKERS</option>
+                <option value="T-SHIRT">T-SHIRT</option>
+                <option value="PANTS">PANTS</option>
+                <option value="GLOVES">GLOVES</option>
+              </select>
+            </div>
+
+            <div class="half-input" id="product-collection">
+              <label>CLOTHS SIZE</label>
+              <select class="product-size" name="productSize">
+                <option value="XXL">XXL</option>
+                <option value="XL" selected>XL</option>
+                <option value="M">M</option>
+                <option value="S">S</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="long-input">
+            <label>Product Description</label>
+            <textarea name="productDesc" class="product-desc"></textarea>
+          </div>
+
+          <!-- ====== IMAGE UPLOADS ====== -->
+          <div class="img-frame">
+            <label>Product Images</label>
+            <div class="media-frame">
+              <% for(let i = 1; i <= 5; i++) { %>
+                <div class="upload-img-box">
+                  <img src="/img/upload.svg" id="image-section-<%= i %>" />
+                  <input type="file" name="productImages" onchange="previewFileHandler(this, '<%= i %>')" />
+                </div>
+              <% } %>
+
+              <input name="restaurantId" class="restaurant-id" hidden />
+            </div>
+          </div>
+
+          <!-- ====== FORM BUTTONS ====== -->
+          <div class="operation-buttons">
+            <button type="button" class="btn btn-danger" id="cancel-btn">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="create-btn">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="/js/products.js"></script>
+</body>
+
+<%- include('includes/footer') %>

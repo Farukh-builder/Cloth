@@ -76,7 +76,7 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     summaryClient--;
-    console.log(`Disconnected $ total [${summaryClient}]`);
+    console.log(`Disconnection & total [${summaryClient}]`);
   })
 });
 

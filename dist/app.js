@@ -13,6 +13,8 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const config_1 = require("./libs/config");
 const express_session_1 = __importDefault(require("express-session"));
 const connect_mongodb_session_1 = __importDefault(require("connect-mongodb-session"));
+const socket_io_1 = require("socket.io");
+const http_1 = __importDefault(require("http"));
 const MongoDBStore = (0, connect_mongodb_session_1.default)(express_session_1.default);
 const store = new MongoDBStore({
     uri: String(process.env.MONGO_URL),
@@ -52,4 +54,20 @@ app.set("view engine", "ejs");
 // SSR: EJS
 app.use("/admin", router_admin_1.default); // SSR
 app.use("/", router_1.default); // SPA
-exports.default = app;
+const server = http_1.default.createServer(app);
+const io = new socket_io_1.Server(server, {
+    cors: {
+        origin: true,
+        credentials: true,
+    },
+});
+let summaryClient = 0;
+io.on("connection", (socket) => {
+    summaryClient++;
+    console.log(`Connection & total [${summaryClient}]`);
+    socket.on("disconnect", () => {
+        summaryClient--;
+        console.log(`Disconnection & total [${summaryClient}]`);
+    });
+});
+exports.default = server;

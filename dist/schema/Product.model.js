@@ -63,7 +63,6 @@ const productSchema = new mongoose_1.Schema({
         enum: product_enum_1.ProductSize,
         default: product_enum_1.ProductSize.XL,
     },
-    
     productDesc: {
         type: String,
     },

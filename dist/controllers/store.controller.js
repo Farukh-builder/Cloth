@@ -78,7 +78,7 @@ storeController.processSignup = async (req, res) => {
             throw new Error_1.default(Error_1.HttpCode.BAD_REQUEST, Error_1.Message.SOMETHING_WENT_WRONG);
         const newMember = req.body;
         newMember.memberImage = file?.path.replace(/\\/g, "/");
-        newMember.memberType = member_enum_1.MemberType.RESTAURANT;
+        newMember.memberType = member_enum_1.MemberType.STORE;
         const result = await memberService.processSignup(newMember);
         req.session.member = result; // this data will save
         req.session.save(function () {
@@ -163,7 +163,7 @@ storeController.checkAuthSession = async (req, res) => {
     }
 };
 storeController.verifyStore = (req, res, next) => {
-    if (req.session?.member?.memberType === member_enum_1.MemberType.RESTAURANT) {
+    if (req.session?.member?.memberType === member_enum_1.MemberType.STORE) {
         req.member = req.session.member;
         next();
     }
@@ -172,4 +172,4 @@ storeController.verifyStore = (req, res, next) => {
         res.send(`<script> alert("${message}"); window.location.replace('/admin/login'); </script>`);
     }
 };
-exports.default = restaurantController;
+exports.default = storeController;

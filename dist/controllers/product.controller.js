@@ -50,7 +50,7 @@ productController.getProducts = async (req, res) => {
             order: String(order),
             page: Number(page),
             limit: Number(limit),
-            productCollection: product_enum_1.ProductCollection.DISH,
+            productCollection: product_enum_1.ProductCollection.CLOTHS,
             search: ""
         };
         if (productCollection)

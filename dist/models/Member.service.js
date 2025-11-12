@@ -48,7 +48,7 @@ class MemberService {
     /** SPA */
     async getStore() {
         const result = await this.memberModel.
-            findOne({ memberType: member_enum_1.MemberType.RESTAURANT })
+            findOne({ memberType: member_enum_1.MemberType.STORE })
             .exec();
         if (!result)
             throw new Error_1.default(Error_1.HttpCode.NOT_FOUND, Error_1.Message.NO_DATA_FOUND);
@@ -127,7 +127,7 @@ class MemberService {
     /** SSR */
     async processSignup(input) {
         const exist = await this.memberModel
-            .findOne({ memberType: member_enum_1.MemberType.RESTAURANT })
+            .findOne({ memberType: member_enum_1.MemberType.STORE })
             .exec();
         if (exist)
             throw new Error_1.default(Error_1.HttpCode.BAD_REQUEST, Error_1.Message.CREATE_FAILED);

@@ -18,7 +18,7 @@ var ProductCollection;
 (function (ProductCollection) {
     ProductCollection["CLOTHS"] = "CLOTHS";
     ProductCollection["SNEAKERS"] = "SNEAKERS";
-    ProductCollection["T_SHIRT"] = "T_SHIRT";
+    ProductCollection["T_SH0RT"] = "T_SHORT";
     ProductCollection["PANTS"] = "PANTS";
     ProductCollection["GLOVES"] = "GLOVES";
 })(ProductCollection || (exports.ProductCollection = ProductCollection = {}));
